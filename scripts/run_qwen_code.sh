@@ -5,7 +5,7 @@ TOOL_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 PROJECT_ROOT="${QWEN_PROJECT_ROOT:-$(cd "$TOOL_DIR/.." && pwd)}"
 cd "$PROJECT_ROOT"
 
-# Default to Indonesian if not set, but allow English via QWEN_CODE_LANG=en
+# Patch Bahasa Indonesia & Locale (Sesuai Tutorial)
 export QWEN_CODE_LANG="${QWEN_CODE_LANG:-id}"
 export LANG="${LANG:-C.UTF-8}"
 export LC_ALL="${LC_ALL:-C.UTF-8}"
@@ -40,13 +40,14 @@ fi
 
 export QWEN_AIKIT_API_KEY="${QWEN_AIKIT_API_KEY:-$QWEN_API_KEY}"
 
-# Bilingual system prompt (Indonesian/English)
+# System Prompt (Bilingual Support)
 if [[ "$QWEN_CODE_LANG" == "en" ]]; then
   SYSTEM_PROMPT="You are a bilingual coding agent (Indonesian/English). Always treat ${PROJECT_ROOT} as the only project root. Resolve all relative paths against ${PROJECT_ROOT}. The helper folder ${TOOL_DIR} contains Qwen launch files; do not edit it unless the user explicitly asks. Never create, read, or modify files outside ${PROJECT_ROOT} unless the user explicitly asks for an absolute path outside the project. Respond in the same language the user uses (Indonesian or English). Do not add HTML blocks, details, summary, Response ID, or Request ID in your answers."
 else
   SYSTEM_PROMPT="Kamu adalah coding agent bilingual (Bahasa Indonesia/Inggris). Selalu anggap ${PROJECT_ROOT} sebagai satu-satunya root proyek. Selesaikan semua path relatif terhadap ${PROJECT_ROOT}. Folder helper ${TOOL_DIR} berisi file peluncur Qwen; jangan edit kecuali pengguna secara eksplisit meminta. Jangan pernah membuat, membaca, atau mengubah file di luar ${PROJECT_ROOT} kecuali pengguna secara eksplisit meminta path absolut di luar proyek. Jawab dalam bahasa yang sama dengan yang digunakan pengguna (Bahasa Indonesia atau Inggris). Jangan tambahkan blok HTML, details, summary, Response ID, atau Request ID dalam jawaban."
 fi
 
+# Patch Command Script (Sesuai Tutorial - Menggunakan Array & Printf)
 QWEN_CMD=(
   qwen
   --auth-type openai
@@ -57,9 +58,8 @@ QWEN_CMD=(
   "$@"
 )
 
-# Handle Google Colab environment: use script -q if available, otherwise run directly
-if command -v script >/dev/null 2>&1; then
-  script -q -c "$(printf '%q ' "${QWEN_CMD[@]}")" /dev/null | python3 -c '
+# Eksekusi dengan script -q untuk kompatibilitas terminal interaktif
+script -q -c "$(printf '%q ' "${QWEN_CMD[@]}")" /dev/null | python3 -c '
 import sys
 
 inside_details = False
@@ -79,7 +79,3 @@ for line in sys.stdin:
     sys.stdout.write(line)
     sys.stdout.flush()
 '
-else
-  # Fallback for environments where script command is not available (e.g., some Colab setups)
-  "${QWEN_CMD[@]}"
-fi
