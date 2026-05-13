@@ -58,7 +58,7 @@ cd my_project
 Clone `qwen_free_cli` inside the project:
 
 ```bash
-git clone https://github.com/Staks-sor/qwen_free_cli.git
+git clone https://github.com/tuwiliyt/qwen_free_cli.git
 ```
 
 Install `Qwen Code CLI`:
@@ -85,38 +85,96 @@ py -m pip install -r qwen_free_cli\requirements.txt
 
 Important: `.venv` is created in the root of your project, and dependencies are taken from `qwen_free_cli/requirements.txt`.
 
-### Google Colab Setup
+### Google Colab Setup (Complete Guide)
 
-To run in Google Colab Terminal:
+To run in Google Colab Terminal, follow these steps exactly:
 
-1. Mount your Google Drive (if using Drive):
-   ```python
-   from google.colab import drive
-   drive.mount('/content/drive')
-   ```
-2. Navigate to your project folder:
-   ```bash
-   cd /content/drive/MyDrive/your_project_folder
-   ```
-3. Install Node.js and npm (if not already installed):
-   ```bash
-   !apt-get update && apt-get install -y nodejs npm
-   ```
-4. Install Qwen Code CLI:
-   ```bash
-   !npm install -g @qwen-code/qwen-code@latest
-   ```
-5. Set up Python environment:
-   ```bash
-   !python3 -m venv .venv
-   !source .venv/bin/activate
-   !pip install -r qwen_free_cli/requirements.txt
-   ```
-6. Run the agent:
-   ```bash
-   !chmod +x qwen_free_cli/scripts/run_qwen_code.sh
-   !./qwen_free_cli/scripts/run_qwen_code.sh
-   ```
+#### 1. Initial Setup
+
+```bash
+cd /content
+mkdir -p apula
+cd apula
+
+apt update
+apt install -y git curl python3-venv
+
+curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
+apt install -y nodejs
+
+node -v
+npm -v
+```
+
+#### 2. Clone Repo and Install Qwen CLI
+
+```bash
+git clone https://github.com/tuwiliyt/qwen_free_cli.git
+npm install -g @qwen-code/qwen-code@latest
+which qwen
+qwen --version
+```
+
+#### 3. Create Virtual Environment (Colab Specific)
+
+```bash
+python3 -m venv .venv --without-pip
+source .venv/bin/activate
+
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+python get-pip.py
+
+which python
+which pip
+```
+
+#### 4. Install Dependencies
+
+```bash
+pip install -r qwen_free_cli/requirements.txt
+```
+
+#### 5. Configure credentials.json
+
+Edit `qwen_free_cli/credentials.json` with your token:
+
+```bash
+nano qwen_free_cli/credentials.json
+```
+
+Content:
+```json
+{
+  "sessions": [
+    {
+      "qwen_credentials": {
+        "access_token": "YOUR_TOKEN_HERE"
+      }
+    }
+  ]
+}
+```
+
+Verify JSON format:
+```bash
+python3 -m json.tool qwen_free_cli/credentials.json
+```
+
+#### 6. Set Locale and Permissions
+
+```bash
+unset LC_ALL
+export LANG=C.UTF-8
+export LC_ALL=C.UTF-8
+
+chmod +x qwen_free_cli/scripts/run_qwen_code.sh
+```
+
+#### 7. Run the Agent
+
+```bash
+./qwen_free_cli/scripts/run_qwen_code.sh
+```
 
 ## Key Configuration
 
