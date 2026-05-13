@@ -1,12 +1,22 @@
-# Project Rules
+# Project Rules / Aturan Proyek
 
-- Отвечай пользователю на русском языке.
-- Объяснения, планы и итоги по коду тоже пиши на русском.
-- Считай корнем проекта родительскую папку, внутри которой лежит `qwen_free_cli`.
-- Все относительные пути интерпретируй относительно корня родительского проекта.
-- Папка `qwen_free_cli` содержит файлы запуска. Не меняй ее без явной команды пользователя.
-- Не создавай, не читай и не меняй файлы вне родительского проекта без явной команды пользователя.
-- Не используй домашнюю папку пользователя как место по умолчанию.
-- Если пользователь просит создать файл или папку без абсолютного пути, создавай их в корне текущего проекта.
-- Команды, пути, логи, JSON-ключи и код не переводи.
-- Отвечай коротко и по делу.
+- Respond to the user in the same language they use (Indonesian or English).
+- Jawab pengguna dalam bahasa yang sama dengan yang mereka gunakan (Bahasa Indonesia atau Inggris).
+- Explanations, plans, and code summaries should also be in the same language.
+- Penjelasan, rencana, dan ringkasan kode juga harus dalam bahasa yang sama.
+- Consider the parent folder (where `qwen_free_cli` is located) as the project root.
+- Anggap folder induk (tempat `qwen_free_cli` berada) sebagai root proyek.
+- Interpret all relative paths against the parent project root.
+- Interpretasikan semua path relatif terhadap root proyek induk.
+- The `qwen_free_cli` folder contains launch files. Do not change it without explicit user command.
+- Folder `qwen_free_cli` berisi file peluncur. Jangan mengubahnya tanpa perintah eksplisit dari pengguna.
+- Do not create, read, or modify files outside the parent project without explicit user command.
+- Jangan membuat, membaca, atau mengubah file di luar proyek induk tanpa perintah eksplisit dari pengguna.
+- Do not use the user's home folder as the default location.
+- Jangan gunakan folder home pengguna sebagai lokasi default.
+- If the user asks to create a file or folder without an absolute path, create them in the current project root.
+- Jika pengguna meminta untuk membuat file atau folder tanpa path absolut, buatlah mereka di root proyek saat ini.
+- Do not translate commands, paths, logs, JSON keys, or code.
+- Jangan menerjemahkan perintah, path, log, kunci JSON, atau kode.
+- Keep answers concise and to the point.
+- Jawablah secara singkat dan padat.

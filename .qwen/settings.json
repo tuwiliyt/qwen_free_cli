@@ -1,6 +1,6 @@
 {
   "general": {
-    "language": "ru-RU"
+    "language": "id-ID"
   },
   "modelProviders": {
     "openai": [
@@ -8,7 +8,7 @@
         "id": "qwen3.6-plus",
         "name": "qwen3.6-plus via OpenAI-compatible API",
         "baseUrl": "https://qwen.aikit.club/v1",
-        "description": "Qwen Code через OpenAI-compatible endpoint",
+        "description": "Qwen Code via OpenAI-compatible endpoint",
         "envKey": "QWEN_API_KEY"
       }
     ]
@@ -26,4 +26,3 @@
   },
   "$version": 3
 }
-
